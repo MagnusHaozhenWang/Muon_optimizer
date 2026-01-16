@@ -1,0 +1,69 @@
+"""
+LeNet 模型定义 - 适配 CIFAR-10 (32x32 RGB)
+"""
+import torch
+import torch.nn as nn
+import torch.nn.functional as F
+
+
+class LeNet(nn.Module):
+    """
+    LeNet 模型，适配 CIFAR-10 (32x32x3)
+    
+    结构:
+    - Conv1 (3->6, 5x5) -> ReLU -> MaxPool (2x2)
+    - Conv2 (6->16, 5x5) -> ReLU -> MaxPool (2x2)
+    - FC1 (16*5*5 -> 120) -> ReLU
+    - FC2 (120 -> 84) -> ReLU
+    - FC3 (84 -> 10)
+    """
+    
+    def __init__(self, num_classes: int = 10):
+        super(LeNet, self).__init__()
+        
+        # 卷积层
+        self.conv1 = nn.Conv2d(3, 6, kernel_size=5, padding=0)
+        self.conv2 = nn.Conv2d(6, 16, kernel_size=5, padding=0)
+        
+        # 全连接层
+        self.fc1 = nn.Linear(16 * 5 * 5, 120)
+        self.fc2 = nn.Linear(120, 84)
+        self.fc3 = nn.Linear(84, num_classes)
+        
+        # 初始化权重
+        self._init_weights()
+    
+    def _init_weights(self):
+        """权重初始化 - Kaiming 初始化"""
+        for m in self.modules():
+            if isinstance(m, nn.Conv2d):
+                nn.init.kaiming_normal_(m.weight, mode='fan_out', nonlinearity='relu')
+                if m.bias is not None:
+                    nn.init.constant_(m.bias, 0)
+            elif isinstance(m, nn.Linear):
+                nn.init.kaiming_normal_(m.weight, mode='fan_out', nonlinearity='relu')
+                nn.init.constant_(m.bias, 0)
+    
+    def forward(self, x: torch.Tensor) -> torch.Tensor:
+        # Conv1 -> ReLU -> Pool
+        x = F.max_pool2d(F.relu(self.conv1(x)), 2)
+        # Conv2 -> ReLU -> Pool
+        x = F.max_pool2d(F.relu(self.conv2(x)), 2)
+        # Flatten
+        x = x.view(x.size(0), -1)
+        # FC layers
+        x = F.relu(self.fc1(x))
+        x = F.relu(self.fc2(x))
+        x = self.fc3(x)
+        return x
+
+
+def create_model(num_classes: int = 10, device: str = "cuda") -> nn.Module:
+    """创建模型并移动到指定设备"""
+    model = LeNet(num_classes=num_classes)
+    return model.to(device)
+
+
+def count_parameters(model: nn.Module) -> int:
+    """统计模型参数量"""
+    return sum(p.numel() for p in model.parameters() if p.requires_grad)
