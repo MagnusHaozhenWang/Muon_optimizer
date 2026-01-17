@@ -1,0 +1,322 @@
+Using device: cuda
+============================================================
+SYSTEM INFORMATION
+============================================================
+python_version: 3.10.19
+pytorch_version: 2.5.1
+cuda_version: 12.4
+cudnn_version: 90100
+platform: Windows-10-10.0.26100-SP0
+gpu_name: NVIDIA GeForce RTX 4060 Laptop GPU
+gpu_memory_gb: 8.59
+
+============================================================
+DATASET INFORMATION
+============================================================
+name: CIFAR-10
+num_classes: 10
+image_size: (32, 32, 3)
+train_size: 45000
+val_size: 5000
+test_size: 10000
+normalize_mean: (0.4914, 0.4822, 0.4465)
+normalize_std: (0.247, 0.2435, 0.2616)
+
+============================================================
+OPTIMIZER CONFIGURATIONS
+============================================================
+
+SGD:
+  name: SGD
+  lr: 0.01
+  momentum: 0.9
+  weight_decay: 0.0001
+  nesterov: True
+
+AdamW:
+  name: AdamW
+  lr: 0.001
+  weight_decay: 0.01
+  betas: (0.9, 0.999)
+  eps: 1e-08
+
+Muon:
+  name: Muon
+  lr: 0.002
+  momentum: 0.95
+  weight_decay: 0.01
+  nesterov: True
+  ns_steps: 5
+
+############################################################
+# Run 1/9: SGD with seed 42
+############################################################
+Files already downloaded and verified
+Files already downloaded and verified
+Warning: pynvml not available, GPU utilization monitoring disabled
+
+============================================================
+Training: SGD_seed42_20260116_203829
+Optimizer: SGD, Seed: 42
+============================================================
+Epoch   5 | Train Loss: 1.5325 | Train Acc: 44.14% | Val Acc: 43.00% | Time: 14.1s
+Epoch  10 | Train Loss: 1.4411 | Train Acc: 47.50% | Val Acc: 46.68% | Time: 13.8s
+Epoch  15 | Train Loss: 1.3347 | Train Acc: 51.91% | Val Acc: 50.20% | Time: 12.1s
+Epoch  20 | Train Loss: 1.2466 | Train Acc: 55.26% | Val Acc: 51.30% | Time: 13.3s
+Epoch  25 | Train Loss: 1.1915 | Train Acc: 57.31% | Val Acc: 51.40% | Time: 11.8s
+Epoch  30 | Train Loss: 1.1527 | Train Acc: 58.63% | Val Acc: 53.48% | Time: 11.9s
+D:\WORK\Muon\Pre_test\trainer.py:208: FutureWarning: You are using `torch.load` with `weights_only=False` (the current default value), which uses the default pickle module implicitly. It is possible to construct malicious pickle data which will execute arbitrary code during unpickling (See https://github.com/pytorch/pytorch/blob/main/SECURITY.md#untrusted-models for more details). In a future release, the default value for `weights_only` will be flipped to `True`. This limits the functions that could be executed during unpickling. Arbitrary objects will no longer be allowed to be loaded via this mode unless they are explicitly allowlisted by the user via `torch.serialization.add_safe_globals`. We recommend you start setting `weights_only=True` for any use case where you don't have full control of the loaded file. Please open an issue on GitHub for any issues related to this experimental feature.
+  checkpoint = torch.load(path)
+
+============================================================
+Training Complete: SGD_seed42_20260116_203829
+Best Val Acc: 53.48% @ Epoch 30
+Test Acc (Best-Val): 54.22%
+Test Acc (Last): 54.22%
+Avg Step Time: 2.40 ms
+Peak Memory: 27.8 MB
+Total Time: 436.5s
+============================================================
+
+
+############################################################
+# Run 2/9: SGD with seed 123
+############################################################
+Files already downloaded and verified
+Files already downloaded and verified
+Warning: pynvml not available, GPU utilization monitoring disabled
+
+============================================================
+Training: SGD_seed123_20260116_204606
+Optimizer: SGD, Seed: 123
+============================================================
+Epoch   5 | Train Loss: 1.5162 | Train Acc: 44.76% | Val Acc: 39.74% | Time: 11.8s
+Epoch  10 | Train Loss: 1.4050 | Train Acc: 49.17% | Val Acc: 46.76% | Time: 13.3s
+Epoch  15 | Train Loss: 1.3252 | Train Acc: 52.48% | Val Acc: 47.78% | Time: 11.9s
+Epoch  20 | Train Loss: 1.2663 | Train Acc: 54.82% | Val Acc: 50.90% | Time: 11.8s
+Epoch  25 | Train Loss: 1.2044 | Train Acc: 56.80% | Val Acc: 51.50% | Time: 11.7s
+Epoch  30 | Train Loss: 1.1464 | Train Acc: 59.15% | Val Acc: 52.44% | Time: 13.7s
+
+============================================================
+Training Complete: SGD_seed123_20260116_204606
+Best Val Acc: 52.44% @ Epoch 30
+Test Acc (Best-Val): 52.51%
+Test Acc (Last): 52.51%
+Avg Step Time: 2.27 ms
+Peak Memory: 27.8 MB
+Total Time: 436.8s
+============================================================
+
+
+############################################################
+# Run 3/9: SGD with seed 456
+############################################################
+Files already downloaded and verified
+Files already downloaded and verified
+Warning: pynvml not available, GPU utilization monitoring disabled
+
+============================================================
+Training: SGD_seed456_20260116_205346
+Optimizer: SGD, Seed: 456
+============================================================
+Epoch   5 | Train Loss: 1.7004 | Train Acc: 36.75% | Val Acc: 33.80% | Time: 14.0s
+Epoch  10 | Train Loss: 1.4416 | Train Acc: 48.12% | Val Acc: 46.26% | Time: 14.2s
+Epoch  15 | Train Loss: 1.3065 | Train Acc: 53.02% | Val Acc: 50.76% | Time: 14.2s
+Epoch  20 | Train Loss: 1.2106 | Train Acc: 56.69% | Val Acc: 52.08% | Time: 14.1s
+Epoch  25 | Train Loss: 1.1446 | Train Acc: 59.02% | Val Acc: 50.68% | Time: 13.9s
+Epoch  30 | Train Loss: 1.0827 | Train Acc: 61.10% | Val Acc: 55.94% | Time: 18.6s
+
+============================================================
+Training Complete: SGD_seed456_20260116_205346
+Best Val Acc: 55.94% @ Epoch 30
+Test Acc (Best-Val): 55.98%
+Test Acc (Last): 55.98%
+Avg Step Time: 2.94 ms
+Peak Memory: 27.8 MB
+Total Time: 502.2s
+============================================================
+
+
+############################################################
+# Run 4/9: AdamW with seed 42
+############################################################
+Files already downloaded and verified
+Files already downloaded and verified
+Warning: pynvml not available, GPU utilization monitoring disabled
+
+============================================================
+Training: AdamW_seed42_20260116_210231
+Optimizer: AdamW, Seed: 42
+============================================================
+Epoch   5 | Train Loss: 1.1738 | Train Acc: 58.64% | Val Acc: 57.44% | Time: 13.2s
+Epoch  10 | Train Loss: 0.9457 | Train Acc: 66.80% | Val Acc: 59.40% | Time: 14.1s
+Epoch  15 | Train Loss: 0.7837 | Train Acc: 72.45% | Val Acc: 60.14% | Time: 14.2s
+Epoch  20 | Train Loss: 0.6538 | Train Acc: 77.11% | Val Acc: 60.14% | Time: 13.2s
+Epoch  25 | Train Loss: 0.5343 | Train Acc: 81.31% | Val Acc: 58.58% | Time: 13.9s
+Epoch  30 | Train Loss: 0.4375 | Train Acc: 84.51% | Val Acc: 58.64% | Time: 15.6s
+
+============================================================
+Training Complete: AdamW_seed42_20260116_210231
+Best Val Acc: 60.14% @ Epoch 15
+Test Acc (Best-Val): 60.74%
+Test Acc (Last): 58.81%
+Avg Step Time: 3.18 ms
+Peak Memory: 28.0 MB
+Total Time: 487.3s
+============================================================
+
+
+############################################################
+# Run 5/9: AdamW with seed 123
+############################################################
+Files already downloaded and verified
+Files already downloaded and verified
+Warning: pynvml not available, GPU utilization monitoring disabled
+
+============================================================
+Training: AdamW_seed123_20260116_211102
+Optimizer: AdamW, Seed: 123
+============================================================
+Epoch   5 | Train Loss: 1.1618 | Train Acc: 58.88% | Val Acc: 56.26% | Time: 14.2s
+Epoch  10 | Train Loss: 0.9375 | Train Acc: 66.88% | Val Acc: 59.76% | Time: 14.0s
+Epoch  15 | Train Loss: 0.7662 | Train Acc: 73.15% | Val Acc: 59.94% | Time: 14.8s
+Epoch  20 | Train Loss: 0.6269 | Train Acc: 78.06% | Val Acc: 58.70% | Time: 13.3s
+Epoch  25 | Train Loss: 0.5303 | Train Acc: 81.34% | Val Acc: 58.18% | Time: 13.2s
+Epoch  30 | Train Loss: 0.4238 | Train Acc: 85.16% | Val Acc: 58.94% | Time: 13.4s
+
+============================================================
+Training Complete: AdamW_seed123_20260116_211102
+Best Val Acc: 59.94% @ Epoch 15
+Test Acc (Best-Val): 60.67%
+Test Acc (Last): 58.54%
+Avg Step Time: 3.12 ms
+Peak Memory: 28.0 MB
+Total Time: 479.9s
+============================================================
+
+
+############################################################
+# Run 6/9: AdamW with seed 456
+############################################################
+Files already downloaded and verified
+Files already downloaded and verified
+Warning: pynvml not available, GPU utilization monitoring disabled
+
+============================================================
+Training: AdamW_seed456_20260116_211926
+Optimizer: AdamW, Seed: 456
+============================================================
+Epoch   5 | Train Loss: 1.1620 | Train Acc: 58.90% | Val Acc: 56.28% | Time: 15.2s
+Epoch  10 | Train Loss: 0.9198 | Train Acc: 67.80% | Val Acc: 59.96% | Time: 13.9s
+Epoch  15 | Train Loss: 0.7576 | Train Acc: 73.54% | Val Acc: 60.10% | Time: 13.4s
+Epoch  20 | Train Loss: 0.6220 | Train Acc: 78.34% | Val Acc: 58.72% | Time: 13.6s
+Epoch  25 | Train Loss: 0.5045 | Train Acc: 82.44% | Val Acc: 58.02% | Time: 13.4s
+Epoch  30 | Train Loss: 0.4151 | Train Acc: 85.46% | Val Acc: 57.72% | Time: 13.8s
+
+============================================================
+Training Complete: AdamW_seed456_20260116_211926
+Best Val Acc: 60.10% @ Epoch 15
+Test Acc (Best-Val): 60.83%
+Test Acc (Last): 58.90%
+Avg Step Time: 3.04 ms
+Peak Memory: 28.0 MB
+Total Time: 489.7s
+============================================================
+
+
+############################################################
+# Run 7/9: Muon with seed 42
+############################################################
+Files already downloaded and verified
+Files already downloaded and verified
+Warning: pynvml not available, GPU utilization monitoring disabled
+
+============================================================
+Training: Muon_seed42_20260116_212759
+Optimizer: Muon, Seed: 42
+============================================================
+Epoch   5 | Train Loss: 1.1604 | Train Acc: 59.63% | Val Acc: 56.56% | Time: 14.4s
+Epoch  10 | Train Loss: 1.0734 | Train Acc: 63.25% | Val Acc: 57.10% | Time: 14.4s
+Epoch  15 | Train Loss: 1.0674 | Train Acc: 63.78% | Val Acc: 59.50% | Time: 14.0s
+Epoch  20 | Train Loss: 1.0548 | Train Acc: 64.78% | Val Acc: 60.12% | Time: 13.6s
+Epoch  25 | Train Loss: 1.0682 | Train Acc: 64.56% | Val Acc: 59.94% | Time: 14.0s
+Epoch  30 | Train Loss: 1.0640 | Train Acc: 64.91% | Val Acc: 57.66% | Time: 14.2s
+
+============================================================
+Training Complete: Muon_seed42_20260116_212759
+Best Val Acc: 60.12% @ Epoch 20
+Test Acc (Best-Val): 59.78%
+Test Acc (Last): 57.05%
+Avg Step Time: 6.78 ms
+Peak Memory: 27.8 MB
+Total Time: 504.2s
+============================================================
+
+
+############################################################
+# Run 8/9: Muon with seed 123
+############################################################
+Files already downloaded and verified
+Files already downloaded and verified
+Warning: pynvml not available, GPU utilization monitoring disabled
+
+============================================================
+Training: Muon_seed123_20260116_213648
+Optimizer: Muon, Seed: 123
+============================================================
+Epoch   5 | Train Loss: 1.3488 | Train Acc: 51.88% | Val Acc: 49.12% | Time: 13.8s
+Epoch  10 | Train Loss: 1.2075 | Train Acc: 57.92% | Val Acc: 56.26% | Time: 14.0s
+Epoch  15 | Train Loss: 1.1373 | Train Acc: 60.62% | Val Acc: 56.36% | Time: 14.0s
+Epoch  20 | Train Loss: 1.0971 | Train Acc: 62.11% | Val Acc: 57.56% | Time: 14.8s
+Epoch  25 | Train Loss: 1.0961 | Train Acc: 62.51% | Val Acc: 54.26% | Time: 14.4s
+Epoch  30 | Train Loss: 1.0753 | Train Acc: 63.22% | Val Acc: 56.72% | Time: 15.3s
+
+============================================================
+Training Complete: Muon_seed123_20260116_213648
+Best Val Acc: 57.56% @ Epoch 20
+Test Acc (Best-Val): 57.32%
+Test Acc (Last): 55.94%
+Avg Step Time: 6.96 ms
+Peak Memory: 27.8 MB
+Total Time: 509.8s
+============================================================
+
+
+############################################################
+# Run 9/9: Muon with seed 456
+############################################################
+Files already downloaded and verified
+Files already downloaded and verified
+Warning: pynvml not available, GPU utilization monitoring disabled
+
+============================================================
+Training: Muon_seed456_20260116_214541
+Optimizer: Muon, Seed: 456
+============================================================
+Epoch   5 | Train Loss: 1.3086 | Train Acc: 53.62% | Val Acc: 52.48% | Time: 13.5s
+Epoch  10 | Train Loss: 1.1052 | Train Acc: 61.78% | Val Acc: 54.64% | Time: 14.6s
+Epoch  15 | Train Loss: 1.0437 | Train Acc: 64.14% | Val Acc: 58.92% | Time: 13.8s
+Epoch  20 | Train Loss: 1.0337 | Train Acc: 65.04% | Val Acc: 58.60% | Time: 13.5s
+Epoch  25 | Train Loss: 1.0113 | Train Acc: 66.27% | Val Acc: 60.08% | Time: 14.1s
+Epoch  30 | Train Loss: 1.0278 | Train Acc: 65.79% | Val Acc: 59.06% | Time: 13.9s
+
+============================================================
+Training Complete: Muon_seed456_20260116_214541
+Best Val Acc: 60.08% @ Epoch 25
+Test Acc (Best-Val): 61.03%
+Test Acc (Last): 60.00%
+Avg Step Time: 6.45 ms
+Peak Memory: 27.8 MB
+Total Time: 496.1s
+============================================================
+
+
+====================================================================================================
+FINAL SUMMARY
+====================================================================================================
+Optimizer  | Best Val Acc       | Test Acc (Best)    | Test Acc (Last)    | Step Time (ms)  | Peak Mem (MB)
+----------------------------------------------------------------------------------------------------
+SGD        | 53.95 ± 1.47      | 54.24 ± 1.42      | 54.24 ± 1.42      | 2.54 ± 0.29    | 27.8 ± 0.0
+AdamW      | 60.06 ± 0.09      | 60.75 ± 0.07      | 58.75 ± 0.15      | 3.11 ± 0.06    | 28.0 ± 0.0
+Muon       | 59.25 ± 1.20      | 59.38 ± 1.54      | 57.66 ± 1.71      | 6.73 ± 0.21    | 27.8 ± 0.0
+====================================================================================================

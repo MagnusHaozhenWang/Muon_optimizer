@@ -8,8 +8,8 @@ from typing import List, Dict, Any
 @dataclass
 class TrainConfig:
     """训练配置"""
-    batch_size: int = 128
-    epochs: int = 30
+    batch_size: int = 512
+    epochs: int = 100
     eval_freq: int = 5  # 每 5 个 epoch 评估一次
     warmup_steps: int = 50  # step 时间测量时跳过的 warmup 步数
     

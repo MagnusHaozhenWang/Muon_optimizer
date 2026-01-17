@@ -10,25 +10,29 @@ class LeNet(nn.Module):
     """
     LeNet 模型，适配 CIFAR-10 (32x32x3)
     
-    结构:
-    - Conv1 (3->6, 5x5) -> ReLU -> MaxPool (2x2)
-    - Conv2 (6->16, 5x5) -> ReLU -> MaxPool (2x2)
-    - FC1 (16*5*5 -> 120) -> ReLU
-    - FC2 (120 -> 84) -> ReLU
-    - FC3 (84 -> 10)
+    结构 (改进版):
+    - Conv1 (3->32, 5x5) -> BN -> ReLU -> MaxPool (2x2)
+    - Conv2 (32->64, 5x5) -> BN -> ReLU -> MaxPool (2x2)
+    - FC1 (64*5*5 -> 256) -> BN -> ReLU
+    - FC2 (256 -> 128) -> BN -> ReLU
+    - FC3 (128 -> 10)
     """
     
     def __init__(self, num_classes: int = 10):
         super(LeNet, self).__init__()
         
-        # 卷积层
-        self.conv1 = nn.Conv2d(3, 6, kernel_size=5, padding=0)
-        self.conv2 = nn.Conv2d(6, 16, kernel_size=5, padding=0)
+        # 卷积层 (扩大卷积核数量: 6->16 改为 32->64)
+        self.conv1 = nn.Conv2d(3, 32, kernel_size=5, padding=0)
+        self.bn1 = nn.BatchNorm2d(32)
+        self.conv2 = nn.Conv2d(32, 64, kernel_size=5, padding=0)
+        self.bn2 = nn.BatchNorm2d(64)
         
-        # 全连接层
-        self.fc1 = nn.Linear(16 * 5 * 5, 120)
-        self.fc2 = nn.Linear(120, 84)
-        self.fc3 = nn.Linear(84, num_classes)
+        # 全连接层 (调整以适应新的特征图大小)
+        self.fc1 = nn.Linear(64 * 5 * 5, 256)
+        self.bn3 = nn.BatchNorm1d(256)
+        self.fc2 = nn.Linear(256, 128)
+        self.bn4 = nn.BatchNorm1d(128)
+        self.fc3 = nn.Linear(128, num_classes)
         
         # 初始化权重
         self._init_weights()
@@ -43,17 +47,20 @@ class LeNet(nn.Module):
             elif isinstance(m, nn.Linear):
                 nn.init.kaiming_normal_(m.weight, mode='fan_out', nonlinearity='relu')
                 nn.init.constant_(m.bias, 0)
+            elif isinstance(m, (nn.BatchNorm1d, nn.BatchNorm2d)):
+                nn.init.constant_(m.weight, 1)
+                nn.init.constant_(m.bias, 0)
     
     def forward(self, x: torch.Tensor) -> torch.Tensor:
-        # Conv1 -> ReLU -> Pool
-        x = F.max_pool2d(F.relu(self.conv1(x)), 2)
-        # Conv2 -> ReLU -> Pool
-        x = F.max_pool2d(F.relu(self.conv2(x)), 2)
+        # Conv1 -> BN -> ReLU -> Pool
+        x = F.max_pool2d(F.relu(self.bn1(self.conv1(x))), 2)
+        # Conv2 -> BN -> ReLU -> Pool
+        x = F.max_pool2d(F.relu(self.bn2(self.conv2(x))), 2)
         # Flatten
         x = x.view(x.size(0), -1)
-        # FC layers
-        x = F.relu(self.fc1(x))
-        x = F.relu(self.fc2(x))
+        # FC layers with BN
+        x = F.relu(self.bn3(self.fc1(x)))
+        x = F.relu(self.bn4(self.fc2(x)))
         x = self.fc3(x)
         return x
 
