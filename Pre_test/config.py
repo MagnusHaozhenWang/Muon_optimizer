@@ -33,7 +33,7 @@ class TrainConfig:
 class SGDConfig:
     """SGD 优化器配置"""
     name: str = "SGD"
-    lr: float = 0.01  # 第一次0.05爆炸了
+    lr: float = 0.04
     momentum: float = 0.9
     weight_decay: float = 1e-4
     nesterov: bool = True
@@ -43,7 +43,7 @@ class SGDConfig:
 class AdamWConfig:
     """AdamW 优化器配置"""
     name: str = "AdamW"
-    lr: float = 0.001
+    lr: float = 0.004
     weight_decay: float = 0.01
     betas: tuple = (0.9, 0.999)
     eps: float = 1e-8
@@ -53,7 +53,7 @@ class AdamWConfig:
 class MuonConfig:
     """Muon 优化器配置"""
     name: str = "Muon"
-    lr: float = 0.002
+    lr: float = 0.005
     momentum: float = 0.95
     weight_decay: float = 0.01
     nesterov: bool = True

@@ -10,15 +10,15 @@ class LeNet(nn.Module):
     """
     LeNet 模型，适配 CIFAR-10 (32x32x3)
     
-    结构 (改进版):
+    结构 (改进版 + Dropout):
     - Conv1 (3->32, 5x5) -> BN -> ReLU -> MaxPool (2x2)
     - Conv2 (32->64, 5x5) -> BN -> ReLU -> MaxPool (2x2)
-    - FC1 (64*5*5 -> 256) -> BN -> ReLU
-    - FC2 (256 -> 128) -> BN -> ReLU
+    - FC1 (64*5*5 -> 256) -> BN -> ReLU -> Dropout(0.5)
+    - FC2 (256 -> 128) -> BN -> ReLU -> Dropout(0.5)
     - FC3 (128 -> 10)
     """
     
-    def __init__(self, num_classes: int = 10):
+    def __init__(self, num_classes: int = 10, dropout_rate: float = 0.5):
         super(LeNet, self).__init__()
         
         # 卷积层 (扩大卷积核数量: 6->16 改为 32->64)
@@ -33,6 +33,9 @@ class LeNet(nn.Module):
         self.fc2 = nn.Linear(256, 128)
         self.bn4 = nn.BatchNorm1d(128)
         self.fc3 = nn.Linear(128, num_classes)
+        
+        # Dropout 层（防止过拟合）
+        self.dropout = nn.Dropout(dropout_rate)
         
         # 初始化权重
         self._init_weights()
@@ -58,9 +61,9 @@ class LeNet(nn.Module):
         x = F.max_pool2d(F.relu(self.bn2(self.conv2(x))), 2)
         # Flatten
         x = x.view(x.size(0), -1)
-        # FC layers with BN
-        x = F.relu(self.bn3(self.fc1(x)))
-        x = F.relu(self.bn4(self.fc2(x)))
+        # FC layers with BN and Dropout
+        x = self.dropout(F.relu(self.bn3(self.fc1(x))))
+        x = self.dropout(F.relu(self.bn4(self.fc2(x))))
         x = self.fc3(x)
         return x
 

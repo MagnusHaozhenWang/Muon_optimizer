@@ -18,8 +18,10 @@ def get_transforms() -> Tuple[transforms.Compose, transforms.Compose]:
     Returns:
         (train_transform, test_transform)
     """
-    # 训练集变换（不使用数据增强，保持控制变量）
+    # 训练集变换（添加数据增强以防止过拟合）
     train_transform = transforms.Compose([
+        transforms.RandomCrop(32, padding=4),  # 随机裁剪
+        transforms.RandomHorizontalFlip(),      # 随机水平翻转
         transforms.ToTensor(),
         transforms.Normalize(CIFAR10_MEAN, CIFAR10_STD),
     ])

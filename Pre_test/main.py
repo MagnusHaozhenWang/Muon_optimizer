@@ -43,7 +43,7 @@ def run_single_experiment(
     # 获取优化器配置并创建优化器
     opt_configs = get_optimizer_configs()
     opt_cfg = opt_configs[optimizer_name]
-    optimizer = build_optimizer(optimizer_name, model.parameters(), opt_cfg)
+    optimizer = build_optimizer(optimizer_name, model.parameters(), opt_cfg, model=model)
     
     # 损失函数
     criterion = nn.CrossEntropyLoss()
